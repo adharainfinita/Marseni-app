@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { UsersController } from './users.controller';
-import { UsersService } from './users.service';
-import { ConfigModule, ConfigService } from "@nestjs/config";
+import { ConfigModule } from "@nestjs/config";
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { DataSourceConfig } from './config/dataSource';
 
 @Module({
   imports: [
@@ -9,9 +9,8 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
       isGlobal: true,
       envFilePath: "apps/users/.development.env"
   }),
+  TypeOrmModule.forRoot({...DataSourceConfig})
   ],
-  controllers: [UsersController],
-  providers: [UsersService],
 })
 export class UsersModule {
 }

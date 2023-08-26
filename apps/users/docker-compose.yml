@@ -1,0 +1,15 @@
+version: '3.1'
+
+services:
+  uService_pg:
+    image: postgres:15.1
+    container_name: uService_pg
+    restart: always
+    enviroinment:
+      POSTGRES_DB: marseniUsers
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: huevos2099
+    volumes:
+      -.db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      -5432:5432
