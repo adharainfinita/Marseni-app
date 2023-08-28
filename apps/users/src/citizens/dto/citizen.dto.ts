@@ -1,5 +1,4 @@
 import { IsString, IsNotEmpty, IsNumber, IsDate, IsEmail, Contains, IsEnum } from "class-validator";
-import { CitizenEntity } from "../entities/citizens.entity";
 import { JOBSTATUS, PRONOUMS } from "../../constants/enums";
 
 export class CitizenDTO {

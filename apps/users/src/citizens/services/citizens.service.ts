@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CitizenEntity } from '../entities/citizens.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { CitizenDTO } from '../dto/citizen.dto';
-import { UUID } from 'crypto';
 
 @Injectable()
 export class CitizensService {
@@ -30,12 +29,10 @@ export class CitizensService {
 
   public async findCitizenById(id: string): Promise<CitizenEntity> {
     try {
-      const result: CitizenEntity = await this.citizenRepository
+      return await this.citizenRepository
         .createQueryBuilder('citizen')
         .where({ id })
         .getOne();
-
-      return result;
     } catch (error) {
       throw new Error(error);
     }

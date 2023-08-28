@@ -13,7 +13,7 @@ export class EmployeeEntity extends BaseEntity implements IEmployee {
   @Column()
   lastName?: string;
   @Column()
-  enterpriseId: number;
+  enterpriseId: string;
   @Column()
   salaryAmount: number;
   @OneToOne(()=> CitizenEntity, citizen => citizen.employee)

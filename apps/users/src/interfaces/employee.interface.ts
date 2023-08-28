@@ -2,6 +2,6 @@ export interface IEmployee {
   nss: string;
   fistName?: string;
   lastName?: string;
-  enterpriseId: number;
+  enterpriseId: string;
   salaryAmount: number;
 }

@@ -12,7 +12,7 @@ export class EnterpriseEntity extends BaseEntity implements IEnterprise {
   @Column()
   typeService: string;
   @Column()
-  ceoId: number;
+  ceoId: string;
   @OneToMany(()=> EmployeeEntity, employee => employee.enterprise)
   employees: EmployeeEntity[]
 }
