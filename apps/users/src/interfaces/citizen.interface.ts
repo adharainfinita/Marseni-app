@@ -7,5 +7,5 @@ export interface ICitizen {
   principalAdress: string;
   cuil: string;
   pronoums: 'she' | 'he' | 'they' | 'others';
-  jobStatus: 'employeed' | 'not-employeed';
+  jobStatus: 'employed' | 'unemployed';
 }

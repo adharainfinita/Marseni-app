@@ -1,4 +1,4 @@
-export interface IEmployeer {
+export interface IEmployee {
   nss: string;
   fistName?: string;
   lastName?: string;

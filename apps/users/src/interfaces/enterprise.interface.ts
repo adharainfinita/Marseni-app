@@ -1,6 +1,6 @@
 export interface IEnterprise {
-  NameOrganization: string;
+  nameOrganization: string;
   cuit: string;
   typeService: string;
-  ceoID: number;
+  ceoId: number;
 }
