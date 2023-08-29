@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSourceConfig } from './config/data.source';
 import { EnterprisesModule } from './enterprises/enterprises.module';
 import { EmployeeModule } from './employee/employee.module';
+import { CitizensModule } from './citizens/citizens.module';
 
 @Module({
   imports: [
@@ -11,9 +12,10 @@ import { EmployeeModule } from './employee/employee.module';
       isGlobal: true,
       envFilePath: "apps/users/.development.env"
   }),
-  TypeOrmModule.forRoot({...DataSourceConfig}),
+  TypeOrmModule.forRoot({...DataSourceConfig, autoLoadEntities:true}),
   EnterprisesModule,
-  EmployeeModule
+  EmployeeModule,
+  CitizensModule
   ],
 })
 export class UsersModule {

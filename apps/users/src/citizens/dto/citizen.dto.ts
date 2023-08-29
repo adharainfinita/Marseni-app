@@ -24,7 +24,7 @@ export class CitizenDTO {
   email: string;
 
   @IsString()
-  principalAdress: string;
+  principalAddress: string;
 
   @IsNotEmpty()
   @Contains('-')

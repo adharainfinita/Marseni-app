@@ -1,8 +1,8 @@
 import { Column, Entity, OneToOne } from "typeorm";
-import { ICitizen } from "../../interfaces/citizen.interface";
-import { BaseEntity } from "../../config/base.entity";
-import { EmployeeEntity } from "../../employee/entities/employee.entity";
-import { JOBSTATUS, PRONOUMS } from "../../constants/enums";
+import { ICitizen } from "../interfaces/citizen.interface";
+import { BaseEntity } from "../config/base.entity";
+import { EmployeeEntity } from "./employee.entity";
+import { JOBSTATUS, PRONOUMS } from "../constants/enums";
 
 @Entity({ name: 'citizens' })
 export class CitizenEntity extends BaseEntity implements ICitizen {
@@ -17,12 +17,12 @@ export class CitizenEntity extends BaseEntity implements ICitizen {
     @Column({ unique: true })
   email: string;
     @Column()
-  principalAdress: string;
+  principalAddress: string;
     @Column()
   cuil: string;
-    @Column()
+    @Column('enum', { enum: PRONOUMS })
   pronoums: PRONOUMS;
-    @Column()
+    @Column('enum', { enum: JOBSTATUS })
   jobStatus: JOBSTATUS;
   @OneToOne(()=> EmployeeEntity, employee => employee.citizen)
   employee: EmployeeEntity;

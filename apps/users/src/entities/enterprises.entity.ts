@@ -1,7 +1,7 @@
 import { Column, Entity, OneToMany } from "typeorm";
-import { IEnterprise } from "../../interfaces/enterprise.interface";
-import { BaseEntity } from "../../config/base.entity";
-import { EmployeeEntity } from "../../employee/entities/employee.entity";
+import { IEnterprise } from "../interfaces/enterprise.interface";
+import { BaseEntity } from "../config/base.entity";
+import { EmployeeEntity } from "./employee.entity";
 
 @Entity({ name: 'enteprise' })
 export class EnterpriseEntity extends BaseEntity implements IEnterprise {

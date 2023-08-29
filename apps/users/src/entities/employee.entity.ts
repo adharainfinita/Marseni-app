@@ -1,8 +1,8 @@
 import { Column, Entity, OneToMany, OneToOne } from "typeorm";
-import { BaseEntity } from "../../config/base.entity";
-import { IEmployee } from "../../interfaces/employee.interface";
-import { EnterpriseEntity } from "../../enterprises/entities/enterprises.entity";
-import { CitizenEntity } from "../../citizens/entities/citizens.entity";
+import { BaseEntity } from "../config/base.entity";
+import { IEmployee } from "../interfaces/employee.interface";
+import { EnterpriseEntity } from "./enterprises.entity";
+import { CitizenEntity } from "./citizens.entity";
 
 @Entity({ name: 'employee' })
 export class EmployeeEntity extends BaseEntity implements IEmployee {

@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CitizenEntity } from '../entities/citizens.entity';
+import { CitizenEntity } from '../../entities/citizens.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { CitizenDTO } from '../dto/citizen.dto';
+import { ErrorManager } from '../../utils/error.manager';
 
 @Injectable()
 export class CitizensService {
@@ -13,28 +14,50 @@ export class CitizensService {
 
   public async addCitizen(body: CitizenDTO): Promise<CitizenEntity> {
     try {
-      return await this.citizenRepository.save(body);
+      const result: CitizenEntity = await this.citizenRepository.save(body);
+      if(!result) {
+        throw new ErrorManager({
+          type: 'BAD_REQUEST',
+          message: 'No se pudo guardar el ciudadando, revisa la información'
+        })
+      }
+      return result;
+
     } catch (error) {
-      throw new Error(error);
+      throw ErrorManager.createSignatureError(error.message);
     }
   }
 
   public async findCitizen(): Promise<CitizenEntity[]> {
     try {
-      return await this.citizenRepository.find();
+      const result: CitizenEntity[] = await this.citizenRepository.find();
+      if(!result.length) {
+        throw new ErrorManager({
+          type:'BAD_REQUEST',
+          message: 'No se encontraron ciudadanos en la base de datos'
+        })
+      }
+      return result;
     } catch (error) {
-      throw new Error(error);
+      throw ErrorManager.createSignatureError(error.message);
     }
   }
 
   public async findCitizenById(id: string): Promise<CitizenEntity> {
     try {
-      return await this.citizenRepository
+      const result: CitizenEntity = await this.citizenRepository
         .createQueryBuilder('citizen')
         .where({ id })
         .getOne();
+        if(!result) {
+          throw new ErrorManager({
+            type:'BAD_REQUEST',
+            message: 'No se encontró un ciudadano con ese identificador'
+          })
+        }
+          return result;
     } catch (error) {
-      throw new Error(error);
+      throw ErrorManager.createSignatureError(error.message);
     }
   }
 
@@ -47,11 +70,15 @@ export class CitizensService {
         id,
         body,
       );
-      if (!result.affected) return undefined;
-
+      if (!result.affected) {
+        throw new ErrorManager({
+          type:'BAD_REQUEST',
+          message: 'No hubo actualización en los datos'
+        })
+      };
       return result;
     } catch (error) {
-      throw new Error(error);
+      throw ErrorManager.createSignatureError(error.message);
     }
   }
 
@@ -60,11 +87,15 @@ export class CitizensService {
   ): Promise<DeleteResult | undefined> {
     try {
       const result: DeleteResult = await this.citizenRepository.delete(id);
-      if (!result.affected) return undefined;
-
+      if (!result.affected) {
+        throw new ErrorManager({
+          type:'BAD_REQUEST',
+          message: 'No se encontró que eliminar'
+        })
+      };
       return result;
     } catch (error) {
-      throw new Error(error);
+      throw ErrorManager.createSignatureError(error.message);
     }
   }
 }

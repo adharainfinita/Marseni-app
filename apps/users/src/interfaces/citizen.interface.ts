@@ -4,7 +4,7 @@ export interface ICitizen {
   dni: number;
   dateBirth: Date;
   email: string;
-  principalAdress: string;
+  principalAddress: string;
   cuil: string;
   pronoums: 'she' | 'he' | 'they' | 'others';
   jobStatus: 'employed' | 'unemployed';
