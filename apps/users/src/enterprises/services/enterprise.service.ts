@@ -23,7 +23,7 @@ export class EnterpriseService {
       };
       return result;
     } catch (error) {
-      throw new ErrorManager.createSignatureError(error.message);
+      throw ErrorManager.createSignatureError(error.message);
     }
   }
 
@@ -38,11 +38,11 @@ export class EnterpriseService {
       };
       return result;
     } catch (error) {
-      throw new ErrorManager.createSignatureError(error.message);
+      throw ErrorManager.createSignatureError(error.message);
     }
   }
 
-  public async findEnterpriseById(id: string): Promise<EnterpriseEntity> {
+  public async findEnterpriseById( id: string): Promise<EnterpriseEntity> {
     try {
       const result:EnterpriseEntity = await this.enterpriseRepository
         .createQueryBuilder('enteprise')
@@ -77,7 +77,7 @@ export class EnterpriseService {
       };
       return result;
     } catch (error) {
-      throw new ErrorManager.createSignatureError(error.message);
+      throw ErrorManager.createSignatureError(error.message);
     }
   }
 
@@ -92,7 +92,7 @@ export class EnterpriseService {
         };
         return result;
     } catch (error) {
-      throw new ErrorManager.createSignatureError(error.message);
+      throw ErrorManager.createSignatureError(error.message);
     }
   }
 }
