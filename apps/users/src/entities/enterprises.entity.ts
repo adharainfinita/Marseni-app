@@ -3,7 +3,7 @@ import { IEnterprise } from "../interfaces/enterprise.interface";
 import { BaseEntity } from "../config/base.entity";
 import { EmployeeEntity } from "./employee.entity";
 
-@Entity({ name: 'enteprise' })
+@Entity({ name: 'enterprise' })
 export class EnterpriseEntity extends BaseEntity implements IEnterprise {
   @Column()
   nameOrganization: string;
@@ -13,6 +13,6 @@ export class EnterpriseEntity extends BaseEntity implements IEnterprise {
   typeService: string;
   @Column()
   ceoId: string;
-  @OneToMany(()=> EmployeeEntity, employee => employee.enterprise)
+ @OneToMany(()=> EmployeeEntity, employee => employee.enterprise)
   employees: EmployeeEntity[]
 }

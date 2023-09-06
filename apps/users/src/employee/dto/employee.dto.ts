@@ -7,7 +7,7 @@ export class EmployeeDTO {
   nss: string;
 
   @IsString()
-  fistName?: string;
+  firstName?: string;
 
   @IsString()
   lastName?: string;

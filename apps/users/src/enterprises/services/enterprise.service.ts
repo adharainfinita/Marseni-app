@@ -56,7 +56,7 @@ export class EnterpriseService {
         };
         return result;
     } catch (error) {
-      throw new ErrorManager.createSignatureError(error.message);
+      throw ErrorManager.createSignatureError(error.message);
     }
   }
 

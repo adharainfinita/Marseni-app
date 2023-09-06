@@ -9,14 +9,14 @@ export class EmployeeEntity extends BaseEntity implements IEmployee {
   @Column()
   nss: string;
   @Column()
-  fistName?: string;
+  firstName?: string;
   @Column()
   lastName?: string;
   @Column()
   enterpriseId: string;
   @Column()
   salaryAmount: number;
-  @OneToOne(()=> CitizenEntity, citizen => citizen.employee)
+@OneToOne(()=> CitizenEntity, citizen => citizen.employee)
   citizen: CitizenEntity;
   @OneToMany(()=> EnterpriseEntity, enterprise => enterprise.employees)
   enterprise: EnterpriseEntity;
