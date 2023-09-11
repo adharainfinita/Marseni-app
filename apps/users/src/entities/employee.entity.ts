@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, OneToOne } from "typeorm";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne } from "typeorm";
 import { BaseEntity } from "../config/base.entity";
 import { IEmployee } from "../interfaces/employee.interface";
 import { EnterpriseEntity } from "./enterprises.entity";
@@ -13,11 +13,11 @@ export class EmployeeEntity extends BaseEntity implements IEmployee {
   @Column()
   lastName?: string;
   @Column()
-  enterpriseId: string;
-  @Column()
   salaryAmount: number;
 @OneToOne(()=> CitizenEntity, citizen => citizen.employee)
+@JoinColumn({name: 'employee_id'})
   citizen: CitizenEntity;
   @OneToMany(()=> EnterpriseEntity, enterprise => enterprise.employees)
+  @JoinColumn({name:'enterpise_id'})
   enterprise: EnterpriseEntity;
 }

@@ -12,9 +12,6 @@ export class EmployeeDTO {
   @IsString()
   lastName?: string;
 
-  @IsString()
-  enterpriseId: string;
-
   @IsNumber()
   salaryAmount: number;
 }

@@ -12,18 +12,16 @@ export class EmployeeService {
     private readonly employeeRepository: Repository<EmployeeEntity>,
   ) {}
 
-  getHello(): string {
-    return 'Hello World!';
-  }
   public async addEmployee(body: EmployeeDTO): Promise<EmployeeEntity> {
     try {
-      const result:EmployeeEntity = await this.employeeRepository.save(body);
-      if(!result){
+      const result: EmployeeEntity = await this.employeeRepository.save(body);
+      if (!result) {
         throw new ErrorManager({
           type: 'BAD_REQUEST',
-          message: 'No se pudo guardar al nuevo empleado, revisa la información'
-        })
-      };
+          message:
+            'No se pudo guardar al nuevo empleado, revisa la información',
+        });
+      }
       return result;
     } catch (error) {
       throw ErrorManager.createSignatureError(error.message);
@@ -32,11 +30,11 @@ export class EmployeeService {
 
   public async findEmployees(): Promise<EmployeeEntity[]> {
     try {
-      const result:EmployeeEntity[] = await this.employeeRepository.find();
-      if(!result){
+      const result: EmployeeEntity[] = await this.employeeRepository.find();
+      if (!result) {
         throw new ErrorManager({
           type: 'BAD_REQUEST',
-          message: 'No se encontraron empleados en la base de datos'
+          message: 'No se encontraron empleados en la base de datos',
         });
       }
       return result;
@@ -47,46 +45,72 @@ export class EmployeeService {
 
   public async findEmployeeById(id: string): Promise<EmployeeEntity> {
     try {
-      const result:EmployeeEntity = await this.employeeRepository
-      .createQueryBuilder()
-      .where({id})
-      .getOne()
-      if(!result){
+      const result: EmployeeEntity = await this.employeeRepository
+        .createQueryBuilder()
+        .where({ id })
+        .getOne();
+      if (!result) {
         throw new ErrorManager({
           type: 'BAD_REQUEST',
-          message: 'No se encontró un empleado con ese identificador'
-        })
-      };
+          message: 'No se encontró un empleado con ese identificador',
+        });
+      }
       return result;
     } catch (error) {
       throw ErrorManager.createSignatureError(error.message);
     }
   }
 
-  public async updateEmployee(id:string, body:EmployeeDTO): Promise<UpdateResult | undefined> {
+  public async updateEmployee(
+    id: string,
+    body: EmployeeDTO,
+  ): Promise<UpdateResult | undefined> {
     try {
-      const result: UpdateResult = await this.employeeRepository.update(id, body)
-      if(!result.affected) {
+      const result: UpdateResult = await this.employeeRepository.update(
+        id,
+        body,
+      );
+      if (!result.affected) {
         throw new ErrorManager({
           type: 'BAD_REQUEST',
-          message: 'No hubo actualización en los datos'
-        })
-      };
+          message: 'No hubo actualización en los datos',
+        });
+      }
       return result;
     } catch (error) {
       throw ErrorManager.createSignatureError(error.message);
     }
   }
 
-  public async deleteEmployee(id:string): Promise<DeleteResult | undefined> {
+  public async deleteEmployee(id: string): Promise<DeleteResult | undefined> {
     try {
-      const result: DeleteResult = await this.employeeRepository.delete(id)
-      if(!result.affected) {
+      const result: DeleteResult = await this.employeeRepository.delete(id);
+      if (!result.affected) {
         throw new ErrorManager({
-          type:'BAD_REQUEST',
-          message: 'No se encontró que eliminar'
-        })
-      };
+          type: 'BAD_REQUEST',
+          message: 'No se encontró que eliminar',
+        });
+      }
+      return result;
+    } catch (error) {
+      throw ErrorManager.createSignatureError(error.message);
+    }
+  }
+
+  public async findEmployeesByEnterpiseId(
+    enterpriseId: string,
+  ): Promise<EmployeeEntity[]> {
+    try {
+      const result: EmployeeEntity[] = await this.employeeRepository
+        .createQueryBuilder()
+        .where({ id: enterpriseId })
+        .getMany();
+      if (!result.length) {
+        throw new ErrorManager({
+          type: 'BAD_REQUEST',
+          message: 'No se encontraron empleados en la empresa',
+        });
+      }
       return result;
     } catch (error) {
       throw ErrorManager.createSignatureError(error.message);

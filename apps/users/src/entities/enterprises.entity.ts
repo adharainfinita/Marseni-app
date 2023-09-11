@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany } from "typeorm";
+import { Column, Entity, JoinColumn, OneToMany } from "typeorm";
 import { IEnterprise } from "../interfaces/enterprise.interface";
 import { BaseEntity } from "../config/base.entity";
 import { EmployeeEntity } from "./employee.entity";
@@ -14,5 +14,6 @@ export class EnterpriseEntity extends BaseEntity implements IEnterprise {
   @Column()
   ceoId: string;
  @OneToMany(()=> EmployeeEntity, employee => employee.enterprise)
+ @JoinColumn({name: 'employees_id'})
   employees: EmployeeEntity[]
 }

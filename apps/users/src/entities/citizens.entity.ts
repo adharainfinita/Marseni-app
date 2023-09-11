@@ -1,4 +1,4 @@
-import { Column, Entity, OneToOne } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
 import { ICitizen } from "../interfaces/citizen.interface";
 import { BaseEntity } from "../config/base.entity";
 import { EmployeeEntity } from "./employee.entity";
@@ -25,5 +25,6 @@ export class CitizenEntity extends BaseEntity implements ICitizen {
     @Column('enum', { enum: JOBSTATUS })
   jobStatus: JOBSTATUS;
   @OneToOne(()=> EmployeeEntity, employee => employee.citizen)
+  @JoinColumn({ name: 'citizen_id' })
   employee: EmployeeEntity;
 }

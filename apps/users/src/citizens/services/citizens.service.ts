@@ -4,6 +4,7 @@ import { CitizenEntity } from '../../entities/citizens.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { CitizenDTO } from '../dto/citizen.dto';
 import { ErrorManager } from '../../utils/error.manager';
+import { EmployeeEntity } from '../../entities/employee.entity';
 
 @Injectable()
 export class CitizensService {
@@ -48,7 +49,8 @@ export class CitizensService {
       const result: CitizenEntity = await this.citizenRepository
         .createQueryBuilder('citizen')
         .where({ id })
-        .getOne();
+        .leftJoinAndSelect('citizen.employee', 'employee')
+        .getOne()
         if(!result) {
           throw new ErrorManager({
             type:'BAD_REQUEST',
@@ -98,4 +100,26 @@ export class CitizensService {
       throw ErrorManager.createSignatureError(error.message);
     }
   }
+
+  // public async associateEmployee(
+  //   id: string,
+  //   citizen: CitizenDTO
+  // ): Promise<UpdateResult | undefined> {
+  //   try {
+
+  //     const result: UpdateResult = await this.citizenRepository.update(
+  //       id,
+  //       citizen,
+  //     );
+  //     if (!result.affected) {
+  //       throw new ErrorManager({
+  //         type:'BAD_REQUEST',
+  //         message: 'No hubo actualización en los datos'
+  //       })
+  //     };
+  //     return result;
+  //   } catch (error) {
+  //     throw ErrorManager.createSignatureError(error.message);
+  //   }
+  // }
 }
