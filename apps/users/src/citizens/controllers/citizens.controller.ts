@@ -10,12 +10,9 @@ import {
 } from '@nestjs/common';
 import { CitizensService } from '../services/citizens.service';
 import { CitizenDTO } from '../dto/citizen.dto';
-import { identity } from 'rxjs';
 import { EmployeeEntity } from '../../entities/employee.entity';
 import { EmployeeService } from '../../employee/services/employee.service';
-import { ErrorManager } from '../../utils/error.manager';
 import { CitizenEntity } from '../../entities/citizens.entity';
-import { EmployeeDTO } from '../../employee/dto/employee.dto';
 
 @Controller('citizen')
 export class CitizensController {
